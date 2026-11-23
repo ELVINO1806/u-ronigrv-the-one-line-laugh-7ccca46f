@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
-"""Entry for make.fun "The One-Line Laugh".
-
-Writes a single funny line (one sentence, 119 characters) to
-/output/entry.txt. No network, no clock, no randomness: the output is
-fully deterministic.
-"""
+"""The One-Line Laugh — write one funny sentence to entry.txt."""
 
 import os
-from pathlib import Path
 
-LINE = "I bought a plant to prove I could keep something alive, and now it watches me eat takeout like a disappointed landlord."
+TEXT = "I bought a plant to prove I could keep something alive, and now it watches me eat takeout like a disappointed landlord."
 
-OUTPUT_PATH = Path(os.environ.get("OUTPUT_DIR", "/output")) / "entry.txt"
-
-
-def main() -> None:
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(LINE, encoding="utf-8")
-
+def main():
+    output_dir = os.environ.get("OUTPUT_DIR", "/output")
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "entry.txt"), "w", encoding="utf-8") as f:
+        f.write(TEXT)
 
 if __name__ == "__main__":
     main()
